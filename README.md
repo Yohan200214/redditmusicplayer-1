@@ -1,56 +1,127 @@
-<h1 align="center">
-  <br>
-  <a href="https://reddit.musicplayer.io" title="reddit.musicplayer.io">
-  <img width="650" src="https://cloud.githubusercontent.com/assets/304283/8148060/19b85c3c-1279-11e5-9004-7dda6ee8f7d7.png" alt="music player for reddit">
-  </a>
-  <br>
-  <br>
-</h1>
+# Reddit Music Player
 
-> A free and open-source streaming music web player using data from Reddit.
+A modern, SSR-powered Reddit music player that extracts YouTube links from Reddit posts and creates a seamless music streaming experience.
 
-# Contributing
+## Features
 
-## Installation from source
+- 🎵 **Browse Subreddits** - Explore music from any Reddit subreddit
+- 🔍 **Fast Search** - Search Reddit or browse by subreddit
+- 📺 **YouTube Integration** - Automatically extracts and plays YouTube videos
+- 📋 **Playlist Management** - Build and manage your music queue
+- 💬 **Comments & Metadata** - View Reddit comments and post details
+- 🎨 **Modern UI** - Clean, responsive interface with dark mode support
+- ⚡ **SSR Powered** - Server-side rendering for better SEO
+- 🚀 **Fast & Smooth** - Optimized for performance
+
+## Tech Stack
+
+- **Next.js 14** - React framework with SSR
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Modern styling
+- **Zustand** - State management
+- **React YouTube** - YouTube player integration
+- **Axios** - HTTP client
+- **Date-fns** - Date formatting
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd redditmusicplayer
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Run the development server:
+```bash
+npm run dev
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Usage
+
+1. **Browse Subreddits**: Navigate to `/r/[subreddit]` (e.g., `/r/listentothis`)
+2. **Search**: Use the search bar to find posts across Reddit
+3. **Add to Playlist**: Click "Add to Playlist" on any post with a YouTube link
+4. **Play**: Videos automatically play in sequence
+5. **View Comments**: Click on the Comments tab to see Reddit discussions
+
+## Project Structure
 
 ```
-$ git clone https://github.com/musicplayer-io/redditmusicplayer.git
-$ cd redditmusicplayer
-$ npm install
-
-$ cp server/config/reddit.coffee.sample server/config/reddit.coffee
-# edit server/config/reddit.coffee
-
-$ cp src/coffee/config.coffee.sample src/coffee/config.coffee
-# edit src/coffee/config.coffee
-
-// In development
-$ npm run build:dev
-$ npm start
-
-// In production
-$ npm run build
-$ NODE_ENV=production npm start
-
+├── app/                    # Next.js app directory
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx          # Home page (redirects)
+│   └── r/                 # Subreddit routes (SSR)
+├── components/            # React components
+│   ├── VideoPlayer.tsx   # YouTube player
+│   ├── Playlist.tsx      # Playlist management
+│   ├── SubredditBrowser.tsx # Subreddit browser
+│   ├── Comments.tsx      # Comments display
+│   └── PlayerLayout.tsx  # Main layout
+├── lib/                   # Utilities and services
+│   ├── reddit.ts         # Reddit API service
+│   ├── youtube.ts        # YouTube utilities
+│   └── playlist.ts       # Playlist state management
+└── public/                # Static assets
 ```
 
-## Authentication
+## Building for Production
 
-You'll need a [Reddit](#reddit) API key for this to work.
-As well as a running [redis-server](https://redis.io/topics/quickstart) on port 6379.
+```bash
+npm run build
+npm start
+```
 
-## Getting API keys
+## Features in Detail
 
-#### SoundCloud
+### Subreddit Browsing
+- Browse any Reddit subreddit
+- Sort by Hot, New, Top, or Rising
+- Filter posts to show only those with YouTube links
+- Add individual posts or all posts at once
 
-[SoundCloud API key](https://soundcloud.com/you/apps/new).
-Then edit it in `src/coffee/config.coffee`.
+### Playlist Management
+- Add/remove videos
+- Shuffle playlist
+- Navigate between videos
+- Clear entire playlist
 
-#### Reddit
+### Video Player
+- Full YouTube player controls
+- Volume control
+- Play/pause
+- Skip forward/backward
+- Auto-play next video
 
-[Get the API key](https://www.reddit.com/prefs/apps/) - Only required for authentication.
-You can set an API key for development and production separately in `server/config.reddit.coffee`.
+### Comments
+- View Reddit comments for current video
+- Nested comment threads
+- Link to original Reddit post
 
-# License
+## SEO Features
 
-[GPLv3](LICENSE.md) © Ilias Ismanalijev
+- Server-side rendering for all subreddit pages
+- Dynamic metadata generation
+- Proper URL structure
+- Open Graph tags
+
+## License
+
+GPLv3
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
