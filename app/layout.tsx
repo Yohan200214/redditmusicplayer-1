@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import ThemeProvider from '@/components/ThemeProvider';
+import RedditIntroSplash from '@/components/RedditIntroSplash';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,7 +26,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={inter.className}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <RedditIntroSplash />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -131,7 +131,7 @@ export default function VideoPlayer() {
 
   if (!currentItem) {
     return (
-      <div className="flex items-center justify-center h-full bg-gradient-to-br from-orange-50 to-white dark:from-black dark:to-gray-900 text-gray-900 dark:text-white animate-fadeIn">
+      <div className="flex items-center justify-center h-full bg-gradient-to-br from-red-50 to-white dark:from-black dark:to-gray-900 text-gray-900 dark:text-white animate-fadeIn">
         <div className="text-center max-w-md px-6">
           <div className="text-7xl mb-6 animate-pulse-slow">🎬</div>
           <p className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">No video selected</p>
@@ -174,18 +174,18 @@ export default function VideoPlayer() {
       </div>
 
       {/* Controls */}
-      <div className="bg-white dark:bg-gray-900 border-t border-orange-200 dark:border-red-900/50 text-gray-900 dark:text-white p-4 shadow-2xl animate-slideIn">
+      <div className="bg-white dark:bg-gray-900 border-t border-red-200 dark:border-red-900/50 text-gray-900 dark:text-white p-4 shadow-2xl animate-slideIn">
         {/* Video Info */}
         <div className="mb-4">
           <h3 className="text-lg font-semibold line-clamp-2 text-gray-900 dark:text-white transition-all duration-200">
             {currentItem.title}
           </h3>
           <div className="flex items-center gap-4 mt-2 text-sm text-gray-600 dark:text-gray-400">
-            <span className="text-orange-600 dark:text-red-400 font-medium hover:underline cursor-pointer">
+            <span className="text-red-500 dark:text-red-400 font-medium hover:underline cursor-pointer">
               r/{currentItem.subreddit}
             </span>
             <span className="flex items-center gap-1">
-              <span className="text-orange-500 dark:text-red-500">▲</span>
+              <span className="text-red-500 dark:text-red-500">▲</span>
               {currentItem.score.toLocaleString()}
             </span>
             <span>💬 {currentItem.comments.toLocaleString()}</span>
@@ -196,7 +196,7 @@ export default function VideoPlayer() {
         <div className="flex items-center gap-4">
           <button
             onClick={previous}
-            className="p-2 hover:bg-orange-100 dark:hover:bg-red-900/30 rounded-full transition-all duration-200 text-gray-700 dark:text-white hover:scale-110 active:scale-95"
+            className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-full transition-all duration-200 text-gray-700 dark:text-white hover:scale-110 active:scale-95"
             aria-label="Previous"
           >
             <SkipBack size={24} />
@@ -204,7 +204,7 @@ export default function VideoPlayer() {
 
           <button
             onClick={handlePlayPause}
-            className="p-4 bg-orange-500 dark:bg-red-600 hover:bg-orange-600 dark:hover:bg-red-700 rounded-full transition-all duration-200 shadow-lg hover:shadow-xl text-white hover:scale-110 active:scale-95"
+            className="p-4 bg-red-600 dark:bg-red-600 hover:bg-red-700 dark:hover:bg-red-700 rounded-full transition-all duration-200 shadow-lg hover:shadow-xl text-white hover:scale-110 active:scale-95"
             aria-label={isPlaying ? 'Pause' : 'Play'}
           >
             {isPlaying ? <Pause size={24} /> : <Play size={24} />}
@@ -212,7 +212,7 @@ export default function VideoPlayer() {
 
           <button
             onClick={next}
-            className="p-2 hover:bg-orange-100 dark:hover:bg-red-900/30 rounded-full transition-all duration-200 text-gray-700 dark:text-white hover:scale-110 active:scale-95"
+            className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-full transition-all duration-200 text-gray-700 dark:text-white hover:scale-110 active:scale-95"
             aria-label="Next"
           >
             <SkipForward size={24} />
@@ -221,7 +221,7 @@ export default function VideoPlayer() {
           <div className="flex items-center gap-2 ml-auto">
             <button
               onClick={handleMute}
-              className="p-2 hover:bg-orange-100 dark:hover:bg-red-900/30 rounded-full transition-all duration-200 text-gray-700 dark:text-white hover:scale-110 active:scale-95"
+              className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-full transition-all duration-200 text-gray-700 dark:text-white hover:scale-110 active:scale-95"
               aria-label={muted ? 'Unmute' : 'Mute'}
             >
             {muted || volume === 0 ? <VolumeX size={20} /> : <Volume2 size={20} />}
@@ -232,7 +232,7 @@ export default function VideoPlayer() {
               max="100"
               value={volume}
               onChange={handleVolumeChange}
-              className="w-24 accent-orange-500 dark:accent-red-600 transition-all"
+              className="w-24 accent-red-500 dark:accent-red-600 transition-all"
             />
             <span className="text-sm w-10 text-right text-gray-700 dark:text-white font-medium">{volume}%</span>
           </div>

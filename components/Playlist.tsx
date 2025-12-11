@@ -20,11 +20,11 @@ export default function Playlist() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="p-4 border-b border-orange-200 dark:border-red-900/30 bg-white dark:bg-gray-900 flex items-center justify-between">
+      <div className="p-4 border-b border-red-200 dark:border-red-900/30 bg-white dark:bg-gray-900 flex items-center justify-between">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Playlist ({items.length})</h2>
         <button
           onClick={clearPlaylist}
-          className="px-3 py-1 text-sm text-orange-600 dark:text-red-600 hover:bg-orange-50 dark:hover:bg-red-900/20 rounded transition-colors"
+          className="px-3 py-1 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
         >
           Clear All
         </button>
@@ -38,7 +38,7 @@ export default function Playlist() {
             className={`
               reddit-card p-3 cursor-pointer transition-all duration-200 animate-fadeIn
               ${index === currentIndex 
-                ? 'bg-orange-50 dark:bg-red-900/20 border-l-4 border-orange-500 dark:border-red-500 shadow-md' 
+                ? 'bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 shadow-md' 
                 : 'hover:shadow-md'
               }
             `}
@@ -54,7 +54,7 @@ export default function Playlist() {
                   />
                   {index === currentIndex && (
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-center justify-center">
-                      <div className="bg-orange-500 dark:bg-red-600 rounded-full p-1.5 animate-pulse-slow">
+                    <div className="bg-red-600 rounded-full p-1.5 animate-pulse-slow">
                         <Play size={12} className="text-white" fill="white" />
                       </div>
                     </div>
@@ -67,10 +67,10 @@ export default function Playlist() {
                   {item.title}
                 </h3>
                 <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-1.5">
-                  <span className="font-medium text-orange-600 dark:text-red-400">r/{item.subreddit}</span>
+                  <span className="font-medium text-red-500 dark:text-red-400">r/{item.subreddit}</span>
                   <span className="text-gray-400">•</span>
                   <span className="flex items-center gap-0.5">
-                    <span className="text-orange-500 dark:text-red-500">▲</span>
+                    <span className="text-red-500">▲</span>
                     {item.score.toLocaleString()}
                   </span>
                   <span className="text-gray-400">•</span>
@@ -78,7 +78,7 @@ export default function Playlist() {
                 </div>
                 <div className="flex gap-2">
                   {index === currentIndex && (
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-orange-500 dark:bg-red-600 text-white font-medium animate-pulse-slow">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-red-600 text-white font-medium animate-pulse-slow">
                       Now playing
                     </span>
                   )}

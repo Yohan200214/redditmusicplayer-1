@@ -60,19 +60,19 @@ export default function Comments() {
     return (
       <div
         key={comment.id}
-        className={`mb-3 animate-fadeIn transition-all duration-200 ${depth > 0 ? 'ml-6 border-l-2 border-orange-200 dark:border-red-900/30 pl-4' : 'reddit-card p-3'}`}
+        className={`mb-3 animate-fadeIn transition-all duration-200 ${depth > 0 ? 'ml-6 border-l-2 border-red-200 dark:border-red-900/30 pl-4' : 'reddit-card p-3'}`}
         style={{ animationDelay: `${(depth * 0.1 + index * 0.05)}s` }}
       >
         <div className="mb-2">
           <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400 mb-2">
-            <span className="font-semibold text-orange-600 dark:text-red-400 hover:underline cursor-pointer">
+            <span className="font-semibold text-red-500 dark:text-red-400 hover:underline cursor-pointer">
               u/{comment.author}
             </span>
             <span className="text-gray-400">•</span>
             <span>{formatDistanceToNow(new Date(comment.created_utc * 1000), { addSuffix: true })}</span>
             <span className="text-gray-400">•</span>
             <span className="flex items-center gap-1">
-              <span className="text-orange-500 dark:text-red-500">▲</span>
+              <span className="text-red-500">▲</span>
               {comment.score.toLocaleString()}
             </span>
           </div>
@@ -91,7 +91,7 @@ export default function Comments() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="p-4 border-b border-orange-200 dark:border-red-900/30 bg-white dark:bg-gray-900">
+      <div className="p-4 border-b border-red-200 dark:border-red-900/30 bg-white dark:bg-gray-900">
         <h2 className="text-xl font-semibold flex items-center gap-2 text-gray-900 dark:text-white">
           <MessageSquare size={20} />
           Comments ({comments.length})
@@ -101,7 +101,7 @@ export default function Comments() {
             href={`https://reddit.com${currentItem.permalink}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-orange-600 dark:text-red-600 hover:underline"
+            className="text-red-600 hover:underline"
           >
             View on Reddit →
           </a>

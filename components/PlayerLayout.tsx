@@ -2,21 +2,22 @@
 
 import { useEffect, useState } from 'react';
 import VideoPlayer from './VideoPlayer';
-import Playlist from './Playlist';
-import SubredditBrowser from './SubredditBrowser';
-import Comments from './Comments';
 import { RedditPost } from '@/lib/reddit';
-import { Music, List, MessageSquare, Share2 } from 'lucide-react';
-import ThemeToggle from './ThemeToggle';
-import MiniPlayerBar from './MiniPlayerBar';
 import ToastContainer from './ToastContainer';
 import { usePlaylist } from '@/lib/playlist';
 import { pushToast } from '@/lib/toast';
+import AppleHeader from './AppleHeader';
+import ApplePlayer from './ApplePlayer';
+import AppleMiniPlayer from './AppleMiniPlayer';
+import ApplePlaylistList from './ApplePlaylistList';
+import AppleBrowseGrid from './AppleBrowseGrid';
+import AppleSidebar from './AppleSidebar';
+import AppleNowPlayingPanel from './AppleNowPlayingPanel';
+import Comments from './Comments';
 
 interface PlayerLayoutProps {
   initialSubreddit?: string;
   initialPosts?: RedditPost[];
-  initialSort?: 'hot' | 'new' | 'top' | 'rising';
   error?: string | null;
 }
 
@@ -25,11 +26,10 @@ type View = 'player' | 'browser' | 'playlist' | 'comments';
 export default function PlayerLayout({
   initialSubreddit = 'listentothis',
   initialPosts = [],
-  initialSort = 'hot',
   error,
 }: PlayerLayoutProps) {
   const [activeView, setActiveView] = useState<View>('player');
-  const [sidebarView, setSidebarView] = useState<View>('browser');
+  const [controlledSubreddit, setControlledSubreddit] = useState(initialSubreddit);
   const { next, previous, togglePlay, setVolume, volume, muted, setMuted, getCurrentItem } = usePlaylist();
   const currentItem = getCurrentItem();
 
@@ -86,123 +86,63 @@ export default function PlayerLayout({
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50 dark:bg-black animate-fadeIn">
+    <div className="min-h-screen bg-gradient-to-br from-[#f8f2e9] via-[#f5e6d6] to-[#f8f2e9] dark:from-[#120c08] dark:via-[#1f140e] dark:to-[#120c08] text-gray-900 dark:text-gray-100 transition-colors duration-300 ease-out">
+      <div className="min-h-screen flex items-start justify-center py-8 px-4">
+        <div className="w-full max-w-6xl rounded-3xl border border-white/70 dark:border-white/10 bg-white/96 dark:bg-gradient-to-br dark:from-[#1a120c]/90 dark:via-[#1f1410]/92 dark:to-[#24150e]/95 shadow-[0_30px_90px_-45px_rgba(0,0,0,0.55)] backdrop-blur-2xl overflow-hidden animate-fadeIn transition-all duration-300 ease-out">
       <ToastContainer />
-      {/* Header */}
-      <header className="bg-white dark:bg-black border-b border-orange-300 dark:border-red-900/50 px-4 py-3 shadow-md sticky top-0 z-30 backdrop-blur-sm bg-white/95 dark:bg-black/95">
-        <div className="flex items-center justify-between gap-3 flex-wrap">
-          <div className="flex items-center gap-3">
-            <Music className="text-orange-500 dark:text-red-500" size={24} />
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white">Reddit Music Player</h1>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleShare}
-              className="px-3 py-2 rounded-lg bg-orange-500 dark:bg-red-600 text-white hover:bg-orange-600 dark:hover:bg-red-700 transition-colors flex items-center gap-2 shadow-lg"
-            >
-              <Share2 size={16} />
-              <span className="hidden sm:inline">Share</span>
-            </button>
-            <ThemeToggle />
-          </div>
-        </div>
-        <div className="flex items-center gap-2 mt-3 flex-wrap">
-          <button
-            onClick={() => setActiveView('player')}
-            className={`px-4 py-2 rounded-lg transition-colors font-medium ${
-              activeView === 'player'
-                ? 'bg-orange-500 dark:bg-red-600 text-white shadow-lg'
-                : 'text-gray-700 dark:text-gray-300 hover:bg-orange-100 dark:hover:bg-red-900/30 hover:text-orange-700 dark:hover:text-white'
-            }`}
-          >
-            Player
-          </button>
-          <button
-            onClick={() => setActiveView('browser')}
-            className={`px-4 py-2 rounded-lg transition-colors font-medium ${
-              activeView === 'browser'
-                ? 'bg-orange-500 dark:bg-red-600 text-white shadow-lg'
-                : 'text-gray-700 dark:text-gray-300 hover:bg-orange-100 dark:hover:bg-red-900/30 hover:text-orange-700 dark:hover:text-white'
-            }`}
-          >
-            Browse
-          </button>
-          <button
-            onClick={() => setActiveView('playlist')}
-            className={`px-4 py-2 rounded-lg transition-colors font-medium ${
-              activeView === 'playlist'
-                ? 'bg-orange-500 dark:bg-red-600 text-white shadow-lg'
-                : 'text-gray-700 dark:text-gray-300 hover:bg-orange-100 dark:hover:bg-red-900/30 hover:text-orange-700 dark:hover:text-white'
-            }`}
-          >
-            Playlist
-          </button>
-          <button
-            onClick={() => setActiveView('comments')}
-            className={`px-4 py-2 rounded-lg transition-colors font-medium ${
-              activeView === 'comments'
-                ? 'bg-orange-500 dark:bg-red-600 text-white shadow-lg'
-                : 'text-gray-700 dark:text-gray-300 hover:bg-orange-100 dark:hover:bg-red-900/30 hover:text-orange-700 dark:hover:text-white'
-            }`}
-          >
-            Comments
-          </button>
-        </div>
-      </header>
+          <AppleHeader activeTab={activeView} onChangeTab={setActiveView} onShare={handleShare} />
 
       {/* Error Message */}
       {error && (
-        <div className="bg-red-100 dark:bg-red-900/20 border-l-4 border-red-500 text-red-700 dark:text-red-400 px-4 py-3">
+            <div className="max-w-6xl mx-auto px-6">
+              <div className="mt-4 rounded-2xl bg-red-100/70 dark:bg-red-900/25 border border-red-300/70 dark:border-red-700/50 px-4 py-3 text-red-800 dark:text-red-200 shadow-sm">
           <p className="font-medium">Error: {error}</p>
+              </div>
         </div>
       )}
 
       {/* Main Content */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Main View */}
-        <main className="flex-1 overflow-hidden">
-          {activeView === 'player' && <VideoPlayer />}
-          {activeView === 'browser' && (
-            <SubredditBrowser initialSubreddit={initialSubreddit} initialPosts={initialPosts} />
-          )}
-          {activeView === 'playlist' && <Playlist />}
-          {activeView === 'comments' && <Comments />}
-        </main>
-
-        {/* Sidebar */}
-        {activeView !== 'player' && (
-          <aside className="w-80 border-l border-orange-200 dark:border-red-900/30 bg-gray-50 dark:bg-gray-900 overflow-hidden">
-            <div className="h-full flex flex-col">
-              <div className="p-2 border-b border-orange-200 dark:border-red-900/30 flex gap-2">
-                <button
-                  onClick={() => setSidebarView('playlist')}
-                  className={`flex-1 px-3 py-2 text-sm rounded transition-colors font-medium ${
-                    sidebarView === 'playlist'
-                      ? 'bg-orange-500 dark:bg-red-600 text-white shadow-lg'
-                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-orange-100 dark:hover:bg-red-900/30'
-                  }`}
-                >
-                  <List size={16} className="inline mr-1" />
-                  Playlist
-                </button>
-                <button
-                  onClick={() => setSidebarView('comments')}
-                  className={`flex-1 px-3 py-2 text-sm rounded transition-colors font-medium ${
-                    sidebarView === 'comments'
-                      ? 'bg-orange-500 dark:bg-red-600 text-white shadow-lg'
-                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-orange-100 dark:hover:bg-red-900/30'
-                  }`}
-                >
-                  <MessageSquare size={16} className="inline mr-1" />
-                  Comments
-                </button>
+          <div className="px-4 sm:px-6 pb-6 transition-all duration-300 ease-out">
+            {activeView === 'player' ? (
+              <main className="py-6 animate-fadeIn">
+                <ApplePlayer />
+              </main>
+            ) : (
+              <div className="grid grid-cols-1 lg:grid-cols-[260px,1.4fr,360px] gap-4 lg:gap-6 py-6 animate-fadeIn">
+                <AppleSidebar
+                  activeSubreddit={controlledSubreddit}
+                  onSelectSubreddit={(sub) => {
+                    setControlledSubreddit(sub);
+                    setActiveView('browser');
+                  }}
+                />
+                <div className="space-y-4">
+                  <div className="rounded-2xl bg-white/90 dark:bg-white/5 border border-white/60 dark:border-white/10 backdrop-blur-xl shadow-[0_20px_70px_-45px_rgba(0,0,0,0.6)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_25px_80px_-45px_rgba(0,0,0,0.65)]">
+                    {activeView === 'playlist' ? (
+                      <ApplePlaylistList />
+                    ) : activeView === 'comments' ? (
+                      <div className="rounded-2xl overflow-hidden min-h-[640px]">
+                        <div className="p-4 border-b border-white/60 dark:border-white/10 flex items-center justify-between">
+                          <div>
+                            <p className="text-xs uppercase tracking-[0.18em] text-gray-500 dark:text-gray-500">Comments</p>
+                            <p className="text-sm text-gray-700 dark:text-gray-300">From current track</p>
+                          </div>
+                        </div>
+                        <div className="h-full overflow-y-auto custom-scroll p-4">
+                          <Comments />
+                        </div>
+                      </div>
+                    ) : (
+                      <AppleBrowseGrid
+                        initialSubreddit={controlledSubreddit}
+                        initialPosts={initialPosts}
+                        subredditOverride={controlledSubreddit}
+                      />
+                    )}
+                  </div>
               </div>
-              <div className="flex-1 overflow-hidden">
-                {sidebarView === 'playlist' && <Playlist />}
-                {sidebarView === 'comments' && <Comments />}
+                <AppleNowPlayingPanel />
               </div>
-            </div>
-          </aside>
         )}
       </div>
 
@@ -216,10 +156,12 @@ export default function PlayerLayout({
       {/* Mini Player Bar - shown when not in player view */}
       {activeView !== 'player' && currentItem && (
         <>
-          <div className="pb-20" />
-          <MiniPlayerBar onOpenPlayer={() => setActiveView('player')} />
+              <div className="pb-24" />
+              <AppleMiniPlayer onOpenPlayer={() => setActiveView('player')} />
         </>
       )}
+        </div>
+      </div>
     </div>
   );
 }
