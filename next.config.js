@@ -1,10 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  images: {
-    domains: ['i.redd.it', 'preview.redd.it', 'external-preview.redd.it'],
-  },
+  // Add next-auth configuration here
 }
 
 module.exports = nextConfig
-

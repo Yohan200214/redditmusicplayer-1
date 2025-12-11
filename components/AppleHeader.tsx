@@ -1,5 +1,8 @@
+'use client';
+
 import { useEffect, useState } from 'react';
-import { Music, Share2 } from 'lucide-react';
+import { Music, Share2, LogIn } from 'lucide-react';
+import { signIn } from 'next-auth/react';
 import ThemeToggle from './ThemeToggle';
 import AppleTabs from './AppleTabs';
 
@@ -50,6 +53,15 @@ export default function AppleHeader({ activeTab, onChangeTab, onShare }: AppleHe
               <span className="text-sm font-semibold">Share</span>
             </span>
           </button>
+          <button
+            onClick={() => signIn('reddit')}
+            className="px-3 sm:px-4 py-2 rounded-full bg-white/90 dark:bg-white/10 border border-white/40 dark:border-white/15 text-gray-900 dark:text-white shadow-md shadow-black/10 hover:shadow-lg transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-white dark:hover:bg-white/15"
+          >
+            <span className="flex items-center gap-2">
+              <LogIn size={16} className="text-red-500" />
+              <span className="text-sm font-semibold">Login</span>
+            </span>
+          </button>
           <ThemeToggle />
         </div>
       </div>
@@ -60,5 +72,3 @@ export default function AppleHeader({ activeTab, onChangeTab, onShare }: AppleHe
     </header>
   );
 }
-
-
